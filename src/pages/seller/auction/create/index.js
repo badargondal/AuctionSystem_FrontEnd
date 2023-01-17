@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { CircularProgressbar } from "react-circular-progressbar";
 import MyNavbar from "../../../../components/navbar";
 import getAuthorizedData from "../../../../api/getAuthorizedData";
 function Index() {
+  const navigate = useNavigate();
   const [startTime, setstartTime] = useState(null);
   const [bids, setBids] = useState(null);
   const [endTime, setendTime] = useState(null);
@@ -56,6 +57,7 @@ function Index() {
         (response) => {
           console.log(response.data);
           alert(response.data.message);
+          navigate("/auction");
         },
         (error) => {
           console.log(error);

@@ -23,22 +23,17 @@ function MyNavbar() {
           </button>
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav ">
-              <Link class="nav-item nav-link" to="/home">
-                Home
-              </Link>
-              <Link class="nav-item nav-link" to="/auction">
-                Auction
-              </Link>
-              <Link class="nav-item nav-link" to="/products">
-                Products
-              </Link>
-
-              <Link class="nav-item nav-link" to="/orders">
-                Orders
-              </Link>
-
-              {localStorage.getItem("sellerId") &&
-              localStorage.getItem("token") ? (
+              {localStorage.getItem("adminId") && (
+                <>
+                  <Link class="nav-item nav-link" to="/admin/auctions">
+                    Approve Auction
+                  </Link>
+                  <Link class="nav-item nav-link" to="/seller/product/create">
+                    Reports
+                  </Link>
+                </>
+              )}
+              {localStorage.getItem("sellerId") && (
                 <>
                   <Link class="nav-item nav-link" to="/seller/products">
                     My Products
@@ -52,33 +47,58 @@ function MyNavbar() {
                   <Link class="nav-item nav-link" to="/seller/product/create">
                     Report
                   </Link>
-                  <button
-                    className="btn btn-primary mx-5"
-                    onClick={() => {
-                      localStorage.clear();
-                      navigate("/");
-                    }}
-                  >
-                    Logout
-                  </button>
                 </>
-              ) : (
+              )}
+              {localStorage.getItem("buyerId") && (
                 <>
-                  {localStorage.getItem("token") ? null : (
-                    <Link class="nav-item nav-link" to="/seller/login">
-                      Seller Sign in
-                    </Link>
-                  )}
+                  <Link class="nav-item nav-link" to="/home">
+                    Home
+                  </Link>
+                  <Link class="nav-item nav-link" to="/auction">
+                    Auction
+                  </Link>
+                  <Link class="nav-item nav-link" to="/products">
+                    Products
+                  </Link>
                 </>
               )}
 
-              {!localStorage.getItem("token") ? (
+              {localStorage.getItem("token") ? (
+                <button
+                  className="btn btn-primary mx-5"
+                  onClick={() => {
+                    localStorage.clear();
+                    navigate("/");
+                  }}
+                >
+                  Logout
+                </button>
+              ) : (
                 <>
-                  <Link class="nav-item nav-link " to="/buyer/login">
+                  <Link class="nav-item nav-link" to="/home">
+                    Home
+                  </Link>
+                  <Link class="nav-item nav-link" to="/auction">
+                    Auction
+                  </Link>
+                  <Link class="nav-item nav-link" to="/products">
+                    Products
+                  </Link>
+
+                  <Link class=" btn btn-outline-primary mx-2" to="/buyer/login">
                     Buyer Sign in
                   </Link>
+                  <Link
+                    class=" btn btn-outline-primary mx-2"
+                    to="/seller/login"
+                  >
+                    Seller Sign in
+                  </Link>
+                  <Link className="btn btn-primary mx-4" to="/admin/login">
+                    Admin
+                  </Link>
                 </>
-              ) : null}
+              )}
             </div>
           </div>
         </div>

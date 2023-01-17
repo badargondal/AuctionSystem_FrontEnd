@@ -9,24 +9,27 @@ function Auction(props) {
     <>
       <div className="container">
         <div className="row">
-          {productsData.map((item) => (
-            <div class="col my-5">
-              <Card className="restaurant-card" key={item.productId.id}>
-                <Card.Img variant="top" src={item.productId.imgUrl} />
-                <Card.Body>
-                  <Card.Title>{item.productId.title}</Card.Title>
-                  <Card.Text>Price : {item.productId.price}</Card.Text>
-                  <Card.Text>Date</Card.Text>
-                  <Link
-                    to={`/product/${item.productId._id}`}
-                    state={{ item: item.productId }}
-                  >
-                    <button className="btn btn-primary">Buy Now</button>
-                  </Link>
-                </Card.Body>
-              </Card>
-            </div>
-          ))}
+          {productsData.map(
+            (item) =>
+              item.approved && (
+                <div class="col my-5">
+                  <Card className="restaurant-card" key={item.productId._id}>
+                    <Card.Img variant="top" src={item.productId.imgUrl} />
+                    <Card.Body>
+                      <Card.Title>{item.productId.title}</Card.Title>
+                      <Card.Text>Price : {item.productId.price}</Card.Text>
+                      <Card.Text>Date</Card.Text>
+                      <Link
+                        to={`/product/${item.productId._id}`}
+                        state={{ item: item.productId }}
+                      >
+                        <button className="btn btn-primary">Buy Now</button>
+                      </Link>
+                    </Card.Body>
+                  </Card>
+                </div>
+              )
+          )}
         </div>
       </div>
     </>
