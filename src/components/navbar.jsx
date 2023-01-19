@@ -23,16 +23,24 @@ function MyNavbar() {
           </button>
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav ">
+              {/* Admin Routes */}
               {localStorage.getItem("adminId") && (
                 <>
+                  <Link class="nav-item nav-link" to="/auction">
+                    Auction
+                  </Link>
                   <Link class="nav-item nav-link" to="/admin/auctions">
                     Approve Auction
                   </Link>
-                  <Link class="nav-item nav-link" to="/seller/product/create">
-                    Reports
+                  <Link class="nav-item nav-link" to="/admin/dashboard">
+                    Dashboard
+                  </Link>
+                  <Link class="nav-item nav-link" to="/admin/signup">
+                    Add Admins
                   </Link>
                 </>
               )}
+              {/* Seller Routes */}
               {localStorage.getItem("sellerId") && (
                 <>
                   <Link class="nav-item nav-link" to="/seller/products">
@@ -49,6 +57,7 @@ function MyNavbar() {
                   </Link>
                 </>
               )}
+              {/* Buyer Routes */}
               {localStorage.getItem("buyerId") && (
                 <>
                   <Link class="nav-item nav-link" to="/home">
@@ -63,6 +72,7 @@ function MyNavbar() {
                 </>
               )}
 
+              {/* public Routes */}
               {localStorage.getItem("token") ? (
                 <button
                   className="btn btn-primary mx-5"

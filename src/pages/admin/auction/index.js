@@ -19,7 +19,6 @@ function Index() {
     <>
       <MyNavbar />
       <Header />
-      {/* <Auction auction={auction} /> */}
       {auction === null ? null : <Auction auction={auction} />}
     </>
   );

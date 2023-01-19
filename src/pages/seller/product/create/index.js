@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import MyNavbar from "../../../../components/navbar";
 function Index() {
+  const navigate = useNavigate();
   const [title, setTitle] = useState(null);
   const [price, setPrice] = useState(null);
   const [description, setDescription] = useState(null);
@@ -38,6 +39,8 @@ function Index() {
       .then(
         (response) => {
           console.log(response.data.message);
+          alert(response.data.message);
+          navigate("/seller/products");
         },
         (error) => {
           console.log(error);

@@ -27,7 +27,7 @@ function Auction(props) {
               <>
                 {!item.approved && (
                   <tr key={item._id}>
-                    <th scope="row">{index + 1}</th>
+                    {!item.approved ? <th scope="row">{item._id}</th> : null}
                     <td>{item.productId.title}</td>
                     <td>{item.productId.price}</td>
                     <td>{item.sellerId.name}</td>

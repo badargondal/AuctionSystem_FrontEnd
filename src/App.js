@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-
-import Home from "./pages/home/index";
+import { Home } from "./pages";
+// import Home from "./pages/home";
 import Signup from "./pages/seller/signup/index";
 import Login from "./pages/seller/login/index";
 import BuyerSignup from "./pages/buyer/signup/index";
@@ -18,6 +18,7 @@ import CreateAuction from "./pages/seller/auction/create/index";
 import ProductDetail from "./pages/products/id";
 import Products from "./pages/products/index";
 import AdminAuction from "./pages/admin/auction/index";
+import AdminDashboard from "./pages/admin/dashboard/index";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
         <Route path="/admin/signup" element={<AdminSignup />} />
 
         <Route path="/admin/auctions" element={<AdminAuction />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
 
         <Route path="/seller/login" element={<Login />} />
         <Route path="/seller/signup" element={<Signup />} />
