@@ -18,7 +18,7 @@ function Auction(props) {
               <th scope="col">End Time</th>
               <th scope="col">Minimum Bids</th>
               <th scope="col" className="mx-5">
-                Need Approval
+                Approval
               </th>
             </tr>
           </thead>
@@ -64,35 +64,6 @@ function Auction(props) {
                         }}
                       >
                         Approve
-                      </button>
-                      <button
-                        className="btn btn-outline-primary mx-2 "
-                        onClick={async () => {
-                          const response = await axios
-                            .put(
-                              `${process.env.REACT_APP_BASE_URL}/admin/auction/${item._id}`,
-                              {
-                                approved: false,
-                              },
-                              {
-                                headers: {
-                                  "Content-Type": "application/json",
-                                  Authorization: localStorage.getItem("token"),
-                                },
-                              }
-                            )
-                            .then(
-                              (response) => {
-                                console.log(response.data.message);
-                                alert("Auction is not approved");
-                              },
-                              (error) => {
-                                console.log(error);
-                              }
-                            );
-                        }}
-                      >
-                        Not Approve
                       </button>
                     </td>
                   </tr>

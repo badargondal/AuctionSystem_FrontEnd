@@ -50,9 +50,7 @@ function Sellers() {
                         .then(
                           (response) => {
                             console.log(response.data.message);
-                            alert(
-                              `${process.env.REACT_APP_BASE_URL}/admin/seller/${item._id}`
-                            );
+                            alert(response.data.message);
                           },
                           (error) => {
                             console.log(error);

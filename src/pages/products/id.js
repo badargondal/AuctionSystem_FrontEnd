@@ -8,6 +8,7 @@ function ID(props) {
   const location = useLocation();
   const navigate = useNavigate();
   const product = location.state.item;
+  const req = location.state.req;
   const [bid, setBid] = useState(null);
   const handleInputChange = (e) => {
     const { id, value } = e.target;
@@ -66,7 +67,7 @@ function ID(props) {
                           </div>
                           <div className="d-flex flex-row align-items-center mb-4">
                             <div className="form-outline flex-fill">
-                              <p className="my-0">Minimum Bid</p>
+                              <p className="my-0">Minimum Bid Price</p>
                               <h3>{product.price}</h3>
                             </div>
                           </div>
@@ -89,40 +90,42 @@ function ID(props) {
                             </div>
                           </div> */}
 
-                          <div className="d-flex flex-row align-items-center mb-4">
-                            <div className="form-outline flex-fill">
-                              {localStorage.getItem("buyerId") ? (
-                                <>
-                                  <label className="form-label my-0">
-                                    Bid Amount
-                                  </label>
-                                  <input
-                                    type="number"
-                                    value={bid}
-                                    onChange={(e) => handleInputChange(e)}
-                                    id="bid"
-                                    placeholder="Enter your Bid"
-                                    className="form-control"
-                                  />
-                                  <button
-                                    onClick={() => handleSubmit()}
-                                    type="submit"
-                                    className="btn btn-primary btn-lg my-3"
-                                  >
-                                    Place Bid
-                                  </button>
-                                </>
-                              ) : (
-                                <>
-                                  <Link to="/buyer/login">
-                                    <button className="btn btn-primary btn-lg">
-                                      Login First to Bid
+                          {req == "buy" && (
+                            <div className="d-flex flex-row align-items-center mb-4">
+                              <div className="form-outline flex-fill">
+                                {localStorage.getItem("buyerId") ? (
+                                  <>
+                                    <label className="form-label my-0">
+                                      Bid Amount
+                                    </label>
+                                    <input
+                                      type="number"
+                                      value={bid}
+                                      onChange={(e) => handleInputChange(e)}
+                                      id="bid"
+                                      placeholder="Enter your Bid"
+                                      className="form-control"
+                                    />
+                                    <button
+                                      onClick={() => handleSubmit()}
+                                      type="submit"
+                                      className="btn btn-primary btn-lg my-3"
+                                    >
+                                      Place Bid
                                     </button>
-                                  </Link>
-                                </>
-                              )}
+                                  </>
+                                ) : (
+                                  <>
+                                    <Link to="/buyer/login">
+                                      <button className="btn btn-primary btn-lg">
+                                        Login First to Bid
+                                      </button>
+                                    </Link>
+                                  </>
+                                )}
+                              </div>
                             </div>
-                          </div>
+                          )}
                         </div>
                       </div>
                     </div>

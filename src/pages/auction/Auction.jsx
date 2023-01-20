@@ -21,7 +21,7 @@ function Auction(props) {
                       <Card.Text>Date</Card.Text>
                       <Link
                         to={`/product/${item.productId._id}`}
-                        state={{ item: item.productId }}
+                        state={{ item: item.productId, req: "buy" }}
                       >
                         <button className="btn btn-primary">Buy Now</button>
                       </Link>

@@ -7,16 +7,14 @@ function BiddingReport() {
       <table class="table table-hover thead-dark">
         <thead class="bg-dark">
           <tr class="text-light">
-            <th scope="col">Sr.nasdasdo</th>
-            <th scope="col">Titasdasdle</th>
-            <th scope="col">Priasdce </th>
-            <th scope="col">Sellasder Name</th>
+            <th scope="col">Sr.no</th>
+            <th scope="col">Title</th>
+            <th scope="col">Price </th>
+            <th scope="col">Buyer Name</th>
             <th scope="col">Product Status</th>
-            <th scope="col">End Time</th>
-            <th scope="col">Minimum Bids</th>
-            <th scope="col" className="mx-5">
-              Need Approval
-            </th>
+            <th scope="col">Number of Bids</th>
+            <th scope="col">Bid Winner Name</th>
+            <th scope="col">Bid Winner Email</th>
           </tr>
         </thead>
         <tbody>

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import MyNavbar from "../../../components/navbar";
 function SignIn() {
+  const navigate = useNavigate();
   const [name, setname] = useState(null);
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
@@ -44,6 +45,7 @@ function SignIn() {
           localStorage.setItem("token", response.data.token);
           localStorage.setItem("buyerId", response.data.buyerId);
           alert(response.data.message);
+          navigate("/");
         },
         (error) => {
           console.log(error);

@@ -69,6 +69,12 @@ function MyNavbar() {
                   <Link class="nav-item nav-link" to="/products">
                     Products
                   </Link>
+                  <Link
+                    class="nav-item nav-link"
+                    to="/buyer/products/purchased"
+                  >
+                    Purchased Products
+                  </Link>
                 </>
               )}
 

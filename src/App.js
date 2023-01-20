@@ -19,6 +19,7 @@ import ProductDetail from "./pages/products/id";
 import Products from "./pages/products/index";
 import AdminAuction from "./pages/admin/auction/index";
 import AdminDashboard from "./pages/admin/dashboard/index";
+import PurchasedProducts from "./pages/buyer/products/index";
 
 function App() {
   return (
@@ -63,7 +64,10 @@ function App() {
             </ProtectedSeller>
           }
         />
-
+        <Route
+          path="/buyer/products/purchased"
+          element={<PurchasedProducts />}
+        />
         <Route path="/buyer/signup" element={<BuyerSignup />} />
         <Route path="/buyer/login" element={<BuyerLogin />} />
 
