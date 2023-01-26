@@ -2,6 +2,17 @@ import axios from "axios";
 import React from "react";
 import { useState } from "react";
 import GetData from "../../api/getdata";
+
+const ConvertDate = ({ props }) => {
+  const date = new Date(props);
+  const currentDate = new Date();
+  if (currentDate > date) {
+    return "Auction Time Ended";
+  } else {
+    return date.toLocaleString();
+  }
+};
+
 function AuctionReport() {
   const [data, setData] = useState(null);
   React.useEffect(() => {
@@ -35,7 +46,11 @@ function AuctionReport() {
                 <td>{item.productId.price}</td>
                 <td>{item.sellerId.name}</td>
                 <td>{item.productId.status}</td>
-                <td>{item.endTime}</td>
+
+                <td>
+                  <ConvertDate props={item.endTime} />
+                </td>
+
                 <td>{item.minimumBids}</td>
               </tr>
             </>

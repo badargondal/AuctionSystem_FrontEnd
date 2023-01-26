@@ -1,9 +1,20 @@
 import axios from "axios";
 import React from "react";
 
+const ConvertDate = ({ props }) => {
+  const date = new Date(props);
+  const currentDate = new Date();
+  if (currentDate > date) {
+    return "Auction Time Ended";
+  } else {
+    return date.toLocaleString();
+  }
+};
+
 function Auction(props) {
-  console.log("auction data", props.auction);
+  
   const auctionData = props.auction;
+
   return (
     <>
       <div className="container my-5">
@@ -32,12 +43,14 @@ function Auction(props) {
                     <td>{item.productId.price}</td>
                     <td>{item.sellerId.name}</td>
                     <td>{item.productId.status}</td>
-                    <td>{item.endTime}</td>
+
+                    <td>
+                      <ConvertDate props={item.endTime} />
+                    </td>
                     <td>{item.minimumBids}</td>
                     <td>
-                      {" "}
                       <button
-                        className="btn btn-outline-primary "
+                        className="btn btn-outline-primary"
                         onClick={async () => {
                           const response = await axios
                             .put(
