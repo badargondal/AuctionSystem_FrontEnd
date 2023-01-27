@@ -1,6 +1,6 @@
 import axios from "axios";
 import React from "react";
-
+import { useState } from "react";
 const ConvertDate = ({ props }) => {
   const date = new Date(props);
   const currentDate = new Date();
@@ -11,10 +11,29 @@ const ConvertDate = ({ props }) => {
   }
 };
 
-function Auction(props) {
-  
-  const auctionData = props.auction;
+const ConvertDateButtonClass = (props) => {
+  console.log("props", props);
+  const time = props.time;
+  const state = props.state;
+  const date = new Date(time);
+  const currentDate = new Date();
+  if (currentDate > date) {
+    return "disabled";
+  } else {
+    return "null";
+  }
+};
 
+function Auction(props) {
+  function disabled(item) {
+    const date = new Date(item);
+    const currentDate = new Date();
+    if (currentDate > date) {
+      return "disabled";
+    }
+  }
+
+  const auctionData = props.auction;
   return (
     <>
       <div className="container my-5">
@@ -50,7 +69,9 @@ function Auction(props) {
                     <td>{item.minimumBids}</td>
                     <td>
                       <button
-                        className="btn btn-outline-primary"
+                        className={`btn btn-outline-primary ${disabled(
+                          item.endTime
+                        )}`}
                         onClick={async () => {
                           const response = await axios
                             .put(

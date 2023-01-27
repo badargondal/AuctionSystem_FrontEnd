@@ -30,7 +30,7 @@ function Index() {
             setBuyers(false);
             setProducts(false);
           }}
-        >
+         >
           Bidding Report
         </button>
         <button
