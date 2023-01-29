@@ -1,15 +1,15 @@
 import React from "react";
-import Header from "../../components/Header/header";
-import Auction from "./Auction";
-import GetData from "../../api/getdata";
-import MyNavbar from "../../components/navbar";
-import { CircularProgressbar } from "react-circular-progressbar";
-function Restaurant() {
+import getAuthorizedData from "../../../api/getAuthorizedData";
+import Header from "../../../components/Header/header";
+import MyNavbar from "../../../components/navbar";
+import Report from "./Report";
+
+function Index() {
   const [auctions, setAuctions] = React.useState(null);
   const [loading, setloading] = React.useState(true);
 
   React.useEffect(() => {
-    GetData(`${process.env.REACT_APP_AUCTIONS}`)
+    getAuthorizedData(`/seller/auctions/all`)
       .then((response) => {
         console.log("response auction", response);
         setAuctions(response);
@@ -21,9 +21,9 @@ function Restaurant() {
     <>
       <MyNavbar />
       <Header />
-      {loading ? <CircularProgressbar /> : <Auction auctions={auctions} />}
+      <Report data={auctions} />
     </>
   );
 }
 
-export default Restaurant;
+export default Index;

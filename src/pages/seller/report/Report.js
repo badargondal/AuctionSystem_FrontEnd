@@ -1,18 +1,7 @@
-import axios from "axios";
 import React from "react";
-import { useState } from "react";
 
-import getAuthorizedData from "../../api/getAuthorizedData";
-function BiddingReport() {
-  const [data, setData] = useState(null);
-  React.useEffect(() => {
-    getAuthorizedData(`/admin/bids`)
-      .then((response) => {
-        console.log(response);
-        setData(response);
-      })
-      .catch((e) => console.log(e));
-  }, []);
+function Report(props) {
+  const data = props.data;
   return (
     <div className="container my-3">
       <table class="table table-hover thead-dark">
@@ -22,8 +11,6 @@ function BiddingReport() {
             <th scope="col">Product Id</th>
             <th scope="col">Title</th>
             <th scope="col">Price </th>
-            <th scope="col">Seller Name</th>
-            <th scope="col">Seller Email</th>
             <th scope="col">Bid Amount </th>
             <th scope="col">Bid Winner Name</th>
             <th scope="col">Bid Winner Email</th>
@@ -38,8 +25,7 @@ function BiddingReport() {
                 <td>{item.productId._id}</td>
                 <td>{item.productId.title}</td>
                 <td>{item.productId.price}</td>
-                <td>{item.sellerId.name}</td>
-                <td>{item.sellerId.email}</td>
+                
                 <td>{item.bids[0].bidAmount}</td>
                 <td>{item.bids[0].buyerId.name}</td>
                 <td>{item.bids[0].buyerId.email}</td>
@@ -53,4 +39,4 @@ function BiddingReport() {
   );
 }
 
-export default BiddingReport;
+export default Report;

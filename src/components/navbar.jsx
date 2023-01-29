@@ -52,7 +52,7 @@ function MyNavbar() {
                   <Link class="nav-item nav-link" to="/seller/auction/create">
                     Create Auction
                   </Link>
-                  <Link class="nav-item nav-link" to="/seller/product/create">
+                  <Link class="nav-item nav-link" to="/seller/report">
                     Report
                   </Link>
                 </>

@@ -16,10 +16,12 @@ import Myproducts from "./pages/seller/product/Myproducts/index";
 import Auction from "./pages/auction/index";
 import CreateAuction from "./pages/seller/auction/create/index";
 import ProductDetail from "./pages/products/id";
+import AuctionDetail from "./pages/auction/id";
 import Products from "./pages/products/index";
 import AdminAuction from "./pages/admin/auction/index";
 import AdminDashboard from "./pages/admin/dashboard/index";
 import PurchasedProducts from "./pages/buyer/products/index";
+import SellerReport from "./pages/seller/report/index";
 
 function App() {
   return (
@@ -30,13 +32,14 @@ function App() {
         <Route path="/auction" element={<Auction />} />
         <Route path="/products" element={<Products />} />
         <Route path="/product/:id" element={<ProductDetail />} />
-
+        <Route path="/auction/:id" element={<AuctionDetail />} />
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin/signup" element={<AdminSignup />} />
 
         <Route path="/admin/auctions" element={<AdminAuction />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
 
+        <Route path="/seller/report" element={<SellerReport />} />
         <Route path="/seller/login" element={<Login />} />
         <Route path="/seller/signup" element={<Signup />} />
 

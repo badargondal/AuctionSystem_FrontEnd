@@ -2,9 +2,7 @@ import React from "react";
 import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
 function Auction(props) {
-  console.log("props", props.auctions);
   const productsData = props.auctions;
-
   return (
     <>
       <div className="container">
@@ -20,8 +18,11 @@ function Auction(props) {
                       <Card.Text>Price : {item.productId.price}</Card.Text>
                       <Card.Text>Date</Card.Text>
                       <Link
-                        to={`/product/${item.productId._id}`}
-                        state={{ item: item.productId, req: "buy" }}
+                        to={`/auction/${item._id}`}
+                        state={{
+                          auction: item,
+                          req: "buy",
+                        }}
                       >
                         <button className="btn btn-primary">Buy Now</button>
                       </Link>
