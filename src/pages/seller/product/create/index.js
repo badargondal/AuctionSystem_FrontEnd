@@ -2,13 +2,41 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import MyNavbar from "../../../../components/navbar";
+import { v4 as uuidv4 } from "uuid";
+
 function Index() {
   const navigate = useNavigate();
   const [title, setTitle] = useState(null);
   const [price, setPrice] = useState(null);
   const [description, setDescription] = useState(null);
   const [imgUrl, setImgUrl] = useState(null);
-  const [imgGroup, setImgGroup] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    setImgUrl(e.target.files[0]);
+  };
+  const handleUpload = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    const formData = new FormData();
+    formData.append("file", imgUrl);
+    formData.append("upload_preset", "AuctionSystem");
+    formData.append("cloud_name", "dq76y3bfa");
+    formData.append("public_id", `${uuidv4()}`);
+
+    try {
+      const res = await axios.post(
+        "https://api.cloudinary.com/v1_1/dq76y3bfa/image/upload",
+        formData
+      );
+      setLoading(false);
+      setImgUrl(res.data.url);
+      console.log(res.data.url);
+    } catch (err) {
+      setLoading(false);
+      console.error(err);
+    }
+  };
   const handleInputChange = (e) => {
     const { id, value } = e.target;
     if (id === "title") {
@@ -27,6 +55,7 @@ function Index() {
       title: title,
       price: price,
       description: description,
+      imgUrl: imgUrl,
     };
 
     const response = await axios
@@ -101,6 +130,19 @@ function Index() {
                                 placeholder="Enter description"
                                 className="form-control"
                               />
+                            </div>
+                          </div>
+                          <div className="d-flex flex-row align-items-center mb-4">
+                            <div className="form-outline flex-fill mb-0">
+                              <input type="file" onChange={handleChange} />
+                              <button
+                                onClick={handleUpload}
+                                className="btn btn-outline-primary btn-sm my-1"
+                              >
+                                Upload
+                              </button>
+                              {loading && <p>Loading...</p>}
+                              {/* <UploadImage /> */}
                             </div>
                           </div>
                         </div>
