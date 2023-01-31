@@ -1,70 +1,13 @@
-# Getting Started with Create React App
+Online auction system: Design a system to allow users to set up their products for auctions and bidders to register and bid for various products available for bidding.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Admin: Default admin. Admin can add other admins. Admin can get a report of products up for bidding. Admin can get a report of auction results. Admin can remove or modify seller, buyers, products
 
-## Available Scripts
+Seller: Seller sign up/ sign in. A seller can post a product up for auction. Seller can list product in any available auction. Seller can get a report of his/ her products.
 
-In the project directory, you can run:
+Buyer: Buyer/ bidder sign up/ sign in. Buyer/ bidder can see a list of products up for bidding. A buyer can place his/ her bid on the product. Buyer can give a review to a specific seller ( after winning a bid ).
 
-### `npm start`
+Auction: Auction will have a start and end time. Auction can have an option for minimum bids. Admin can approve or create auctions. Seller can create a new auction (admin will approve this). Auction will automatically end after end time. Auction winner or loser get an email whether they win or lose the bid.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Bids: Seller can see bids on his/ her products. Buyer can bid on any product. Buyer can see the highest bid on the product. Buyer can bid either by entering a bid amount manually or "automatic bidding" feature that automatically places bids on their behalf up to a certain amount. Bid will close automatically if there is no new bid in 2 minutes lot (setting). Bid closing time can be same as auction time. After winning a bid product will show in purchased products section
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Product: Seller can add products. Seller can edit/ delete his/ her own products. Product can have many images. Product will have minimum bid amount. Admin can delete a product up for bidding. Product can have multiple statuses i.e live, sold, delivered
