@@ -1,7 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Home } from "./pages";
-// import Home from "./pages/home";
 import Signup from "./pages/seller/signup/index";
 import Login from "./pages/seller/login/index";
 import BuyerSignup from "./pages/buyer/signup/index";
@@ -28,6 +27,7 @@ function App() {
     <>
       <Routes>
         <Route index element={<Home />} />
+        {/* Public Routes */}
         <Route path="/home" element={<Home />} />
         <Route path="/auction" element={<Auction />} />
         <Route path="/products" element={<Products />} />
@@ -36,13 +36,35 @@ function App() {
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin/signup" element={<AdminSignup />} />
 
-        <Route path="/admin/auctions" element={<AdminAuction />} />
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        {/* Admin Protected Routes */}
+        <Route
+          path="/admin/auctions"
+          element={
+            <Protected>
+              <AdminAuction />
+            </Protected>
+          }
+        />
+        <Route
+          path="/admin/dashboard"
+          element={
+            <Protected>
+              <AdminDashboard />
+            </Protected>
+          }
+        />
 
-        <Route path="/seller/report" element={<SellerReport />} />
         <Route path="/seller/login" element={<Login />} />
         <Route path="/seller/signup" element={<Signup />} />
-
+        {/* Seller Protected Routes */}
+        <Route
+          path="/seller/products"
+          element={
+            <ProtectedSeller>
+              <Myproducts />
+            </ProtectedSeller>
+          }
+        />
         <Route
           path="/seller/product/create"
           element={
@@ -60,16 +82,21 @@ function App() {
           }
         />
         <Route
-          path="/seller/products"
+          path="/seller/report"
           element={
             <ProtectedSeller>
-              <Myproducts />
+              <SellerReport />
             </ProtectedSeller>
           }
         />
+        {/* Buyer Protected Routes */}
         <Route
           path="/buyer/products/purchased"
-          element={<PurchasedProducts />}
+          element={
+            <Protected>
+              <PurchasedProducts />
+            </Protected>
+          }
         />
         <Route path="/buyer/signup" element={<BuyerSignup />} />
         <Route path="/buyer/login" element={<BuyerLogin />} />

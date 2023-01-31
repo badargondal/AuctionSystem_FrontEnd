@@ -11,7 +11,6 @@ function Index() {
   React.useEffect(() => {
     GetData(`${process.env.REACT_APP_PRODUCTS}`)
       .then((response) => {
-        console.log(response);
         setProducts(response);
         setloading(false);
       })

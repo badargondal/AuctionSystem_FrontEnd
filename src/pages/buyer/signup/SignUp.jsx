@@ -1,74 +1,57 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
-import { CircularProgressbar } from "react-circular-progressbar";
-import MyNavbar from "../../../../components/navbar";
-import getAuthorizedData from "../../../../api/getAuthorizedData";
-function Index() {
+import { useNavigate } from "react-router-dom";
+function SignUp() {
   const navigate = useNavigate();
-  const [startTime, setstartTime] = useState(null);
-  const [bids, setBids] = useState(null);
-  const [endTime, setendTime] = useState(null);
-  const [productId, setproductId] = useState(null);
-
-  const [products, setProducts] = React.useState(null);
-  const [loading, setloading] = React.useState(true);
-  React.useEffect(() => {
-    getAuthorizedData(`/seller/products`)
-      .then((response) => {
-        setProducts(response);
-        setloading(false);
-      })
-      .catch((e) => console.log(e));
-  }, []);
+  const [name, setname] = useState(null);
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
+  const [confirmPassword, setConfirmPassword] = useState(null);
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
-    if (id === "startTime") {
-      setstartTime(value);
+    if (id === "name") {
+      setname(value);
     }
-    if (id === "bids") {
-      setBids(value);
+    if (id === "email") {
+      setEmail(value);
     }
-    if (id === "endTime") {
-      setendTime(value);
+    if (id === "password") {
+      setPassword(value);
     }
-    if (id === "product") {
-      setproductId(value);
+    if (id === "confirmPassword") {
+      setConfirmPassword(value);
     }
   };
 
   const handleSubmit = async () => {
     const data = {
-      startTime: startTime,
-      minimumBids: bids,
-      endTime: endTime,
-      productId: productId,
+      name: name,
+      email: email,
+      password: password,
+      confirmPassword: confirmPassword,
     };
-    console.log("data", data);
+
     const response = await axios
-      .post(`${process.env.REACT_APP_BASE_URL}/seller/auction/create`, data, {
+      .post(`${process.env.REACT_APP_BASE_URL}/buyer/register`, data, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: localStorage.getItem("token"),
         },
       })
       .then(
         (response) => {
-          console.log(response.data);
           alert(response.data.message);
-          navigate("/auction");
+          navigate("/buyer/login");
         },
         (error) => {
           console.log(error);
-          alert(error);
         }
       );
   };
 
   return (
     <>
-      <MyNavbar />
       <section className="vh-100" style={{ backgroundColor: "#eee" }}>
         <div className="container h-100">
           <div className="row d-flex justify-content-center align-items-center h-100">
@@ -78,87 +61,84 @@ function Index() {
                   <div className="row justify-content-center">
                     <div className="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
                       <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
-                        List Product for Auction
+                        Sign up As a Buyer
                       </p>
                       <div className="form mx-1 mx-md-4">
                         <div className="form-body">
                           <div className="d-flex flex-row align-items-center mb-4">
                             <div className="form-outline flex-fill mb-0">
-                              <label className="form-label">Start Time</label>
+                              <label className="form-label">Name</label>
                               <input
-                                type="datetime-local"
-                                value={startTime}
+                                type="text"
+                                value={name}
                                 onChange={(e) => handleInputChange(e)}
-                                id="startTime"
+                                id="name"
+                                placeholder="Enter your name"
                                 className="form-control"
                               />
                             </div>
                           </div>
                           <div className="d-flex flex-row align-items-center mb-4">
                             <div className="form-outline flex-fill mb-0">
-                              <label className="form-label">End Time</label>
+                              <label className="form-label">Email</label>
                               <input
-                                type="datetime-local"
-                                value={endTime}
+                                type="email"
+                                value={email}
                                 onChange={(e) => handleInputChange(e)}
-                                id="endTime"
+                                id="email"
+                                placeholder="Enter your email"
                                 className="form-control"
                               />
                             </div>
                           </div>
                           <div className="d-flex flex-row align-items-center mb-4">
                             <div className="form-outline flex-fill mb-0">
-                              <label className="form-label">Minimum Bids</label>
+                              <label className="form-label">Password</label>
                               <input
-                                type="number"
-                                value={bids}
+                                type="password"
+                                value={password}
                                 onChange={(e) => handleInputChange(e)}
-                                id="bids"
-                                placeholder="Enter Minimum Bids"
+                                id="password"
+                                placeholder="Enter your password"
                                 className="form-control"
                               />
                             </div>
                           </div>
                           <div className="d-flex flex-row align-items-center mb-4">
                             <div className="form-outline flex-fill mb-0">
-                              <label className="form-label" for="products">
-                                Select Product
+                              <label className="form-label">
+                                Confirm Password
                               </label>
-                              <br></br>
-                              {loading ? (
-                                <CircularProgressbar />
-                              ) : (
-                                <select
-                                  name="product"
-                                  id="product"
-                                  onChange={(e) => handleInputChange(e)}
-                                >
-                                  {products.map((item) => (
-                                    <option
-                                      className="form-control"
-                                      value={item._id}
-                                      key={item._id}
-                                    >
-                                      {item.title}
-                                    </option>
-                                  ))}
-                                </select>
-                              )}
+                              <input
+                                type="password"
+                                value={confirmPassword}
+                                onChange={(e) => handleInputChange(e)}
+                                id="confirmPassword"
+                                placeholder="Confirm your password"
+                                className="form-control"
+                              />
                             </div>
                           </div>
                         </div>
+
                         <button
                           onClick={() => handleSubmit()}
                           type="submit"
                           className="btn btn-primary btn-lg"
                         >
-                          Create
+                          Register
                         </button>
+                        <p className="my-2">
+                          Already have an account ?{" "}
+                          <span>
+                            <Link to="/buyer/login">Sign In</Link>
+                          </span>
+                        </p>
                       </div>
                     </div>
                     <div className="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
                       <img
-                        src="https://cdni.iconscout.com/illustration/premium/thumb/auction-in-art-gallery-4737496-3944020.png"
+                        src="https://static.vecteezy.com/system/resources/previews/003/689/225/original/online-registration-or-sign-up-login-for-account-on-smartphone-app-user-interface-with-secure-password-mobile-application-for-ui-web-banner-access-cartoon-people-illustration-vector.jpg"
                         className="img-fluid"
                         alt="Sample image"
                       />
@@ -174,4 +154,4 @@ function Index() {
   );
 }
 
-export default Index;
+export default SignUp;

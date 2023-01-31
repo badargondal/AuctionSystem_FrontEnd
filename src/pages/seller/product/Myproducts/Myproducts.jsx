@@ -1,7 +1,6 @@
 import React from "react";
 import Card from "react-bootstrap/Card";
 function Myproducts(props) {
-  //   console.log("props", props);
   const productsData = props.products;
   return (
     <>

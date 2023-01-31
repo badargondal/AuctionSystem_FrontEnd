@@ -10,7 +10,7 @@ function Index() {
   React.useEffect(() => {
     GetData(`${process.env.REACT_APP_AUCTIONS}`)
       .then((response) => {
-        console.log(response);
+        
         setauction(response);
       })
       .catch((e) => console.log(e));

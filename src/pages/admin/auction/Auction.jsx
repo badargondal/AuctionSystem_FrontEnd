@@ -1,6 +1,5 @@
 import axios from "axios";
 import React from "react";
-import { useState } from "react";
 const ConvertDate = ({ props }) => {
   const date = new Date(props);
   const currentDate = new Date();
@@ -8,19 +7,6 @@ const ConvertDate = ({ props }) => {
     return "Auction Time Ended";
   } else {
     return date.toLocaleString();
-  }
-};
-
-const ConvertDateButtonClass = (props) => {
-  console.log("props", props);
-  const time = props.time;
-  const state = props.state;
-  const date = new Date(time);
-  const currentDate = new Date();
-  if (currentDate > date) {
-    return "disabled";
-  } else {
-    return "null";
   }
 };
 
@@ -88,7 +74,6 @@ function Auction(props) {
                             )
                             .then(
                               (response) => {
-                                console.log(response.data.message);
                                 alert(response.data.message);
                               },
                               (error) => {

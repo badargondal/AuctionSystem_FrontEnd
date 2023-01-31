@@ -6,14 +6,11 @@ import Report from "./Report";
 
 function Index() {
   const [auctions, setAuctions] = React.useState(null);
-  const [loading, setloading] = React.useState(true);
 
   React.useEffect(() => {
     getAuthorizedData(`/seller/auctions/all`)
       .then((response) => {
-        console.log("response auction", response);
         setAuctions(response);
-        setloading(false);
       })
       .catch((e) => console.log(e));
   }, []);

@@ -7,7 +7,7 @@ function Sellers() {
   React.useEffect(() => {
     GetData(`/seller/all`)
       .then((response) => {
-        console.log(response);
+        
         setData(response);
       })
       .catch((e) => console.log(e));
@@ -49,7 +49,7 @@ function Sellers() {
                         )
                         .then(
                           (response) => {
-                            console.log(response.data.message);
+                            
                             alert(response.data.message);
                           },
                           (error) => {

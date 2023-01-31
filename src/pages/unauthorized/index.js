@@ -1,6 +1,5 @@
 import React from "react";
 import "./style.css";
-// import "src/pages/unauthorized/style.css";
 function Index() {
   return (
     <>

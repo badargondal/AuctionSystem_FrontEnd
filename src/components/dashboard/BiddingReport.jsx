@@ -1,4 +1,3 @@
-import axios from "axios";
 import React from "react";
 import { useState } from "react";
 
@@ -8,7 +7,7 @@ function BiddingReport() {
   React.useEffect(() => {
     getAuthorizedData(`/admin/bids`)
       .then((response) => {
-        console.log(response);
+        
         setData(response);
       })
       .catch((e) => console.log(e));

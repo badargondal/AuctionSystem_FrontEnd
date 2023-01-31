@@ -7,7 +7,6 @@ import AuctionReport from "../../../components/dashboard/AuctionReport";
 import Sellers from "../../../components/dashboard/Sellers";
 import Buyers from "../../../components/dashboard/Buyers";
 import Products from "../../../components/dashboard/Products";
-import GetData from "../../../api/getdata";
 function Index() {
   const [biddingReport, setBiddingReport] = useState(false);
   const [auctionReport, setAuctionReport] = useState(false);
@@ -30,7 +29,7 @@ function Index() {
             setBuyers(false);
             setProducts(false);
           }}
-         >
+        >
           Bidding Report
         </button>
         <button

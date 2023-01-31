@@ -1,4 +1,3 @@
-import axios from "axios";
 import React from "react";
 import { useState } from "react";
 import GetData from "../../api/getdata";
@@ -18,7 +17,7 @@ function AuctionReport() {
   React.useEffect(() => {
     GetData(`${process.env.REACT_APP_AUCTIONS}`)
       .then((response) => {
-        console.log(response);
+        
         setData(response);
       })
       .catch((e) => console.log(e));

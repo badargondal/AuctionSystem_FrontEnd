@@ -8,7 +8,6 @@ function PruchasedProducts() {
   React.useEffect(() => {
     getAuthorizedData(`/admin/bids`)
       .then((response) => {
-        console.log(response);
         setData(response);
       })
       .catch((e) => console.log(e));

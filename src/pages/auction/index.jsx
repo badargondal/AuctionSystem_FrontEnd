@@ -11,7 +11,6 @@ function Restaurant() {
   React.useEffect(() => {
     GetData(`${process.env.REACT_APP_AUCTIONS}`)
       .then((response) => {
-        console.log("response auction", response);
         setAuctions(response);
         setloading(false);
       })

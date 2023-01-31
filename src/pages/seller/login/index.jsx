@@ -41,7 +41,6 @@ function Index() {
       })
       .then(
         (response) => {
-          console.log(response.data);
           localStorage.setItem("token", response.data.token);
           localStorage.setItem("sellerId", response.data.sellerId);
           navigate("/");

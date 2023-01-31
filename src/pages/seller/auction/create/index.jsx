@@ -1,65 +1,52 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { CircularProgressbar } from "react-circular-progressbar";
 import MyNavbar from "../../../../components/navbar";
-import { v4 as uuidv4 } from "uuid";
-
+import getAuthorizedData from "../../../../api/getAuthorizedData";
 function Index() {
   const navigate = useNavigate();
-  const [title, setTitle] = useState(null);
-  const [price, setPrice] = useState(null);
-  const [description, setDescription] = useState(null);
-  const [imgUrl, setImgUrl] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [startTime, setstartTime] = useState(null);
+  const [bids, setBids] = useState(null);
+  const [endTime, setendTime] = useState(null);
+  const [productId, setproductId] = useState(null);
 
-  const handleChange = (e) => {
-    setImgUrl(e.target.files[0]);
-  };
-  const handleUpload = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    const formData = new FormData();
-    formData.append("file", imgUrl);
-    formData.append("upload_preset", "AuctionSystem");
-    formData.append("cloud_name", "dq76y3bfa");
-    formData.append("public_id", `${uuidv4()}`);
+  const [products, setProducts] = React.useState(null);
+  const [loading, setloading] = React.useState(true);
+  React.useEffect(() => {
+    getAuthorizedData(`/seller/products`)
+      .then((response) => {
+        setProducts(response);
+        setloading(false);
+      })
+      .catch((e) => console.log(e));
+  }, []);
 
-    try {
-      const res = await axios.post(
-        "https://api.cloudinary.com/v1_1/dq76y3bfa/image/upload",
-        formData
-      );
-      setLoading(false);
-      setImgUrl(res.data.url);
-      console.log(res.data.url);
-    } catch (err) {
-      setLoading(false);
-      console.error(err);
-    }
-  };
   const handleInputChange = (e) => {
     const { id, value } = e.target;
-    if (id === "title") {
-      setTitle(value);
+    if (id === "startTime") {
+      setstartTime(value);
     }
-    if (id === "price") {
-      setPrice(value);
+    if (id === "bids") {
+      setBids(value);
     }
-    if (id === "description") {
-      setDescription(value);
+    if (id === "endTime") {
+      setendTime(value);
+    }
+    if (id === "product") {
+      setproductId(value);
     }
   };
 
   const handleSubmit = async () => {
     const data = {
-      title: title,
-      price: price,
-      description: description,
-      imgUrl: imgUrl,
+      startTime: startTime,
+      minimumBids: bids,
+      endTime: endTime,
+      productId: productId,
     };
-
     const response = await axios
-      .post(`${process.env.REACT_APP_BASE_URL}/seller/product`, data, {
+      .post(`${process.env.REACT_APP_BASE_URL}/seller/auction/create`, data, {
         headers: {
           "Content-Type": "application/json",
           Authorization: localStorage.getItem("token"),
@@ -67,12 +54,12 @@ function Index() {
       })
       .then(
         (response) => {
-          console.log(response.data.message);
           alert(response.data.message);
-          navigate("/seller/products");
+          navigate("/auction");
         },
         (error) => {
           console.log(error);
+          alert(error);
         }
       );
   };
@@ -89,64 +76,75 @@ function Index() {
                   <div className="row justify-content-center">
                     <div className="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
                       <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
-                        Create Product
+                        List Product for Auction
                       </p>
                       <div className="form mx-1 mx-md-4">
                         <div className="form-body">
                           <div className="d-flex flex-row align-items-center mb-4">
                             <div className="form-outline flex-fill mb-0">
-                              <label className="form-label">Title</label>
+                              <label className="form-label">Start Time</label>
                               <input
-                                type="text"
-                                value={title}
+                                type="datetime-local"
+                                value={startTime}
                                 onChange={(e) => handleInputChange(e)}
-                                id="title"
-                                placeholder="Enter title"
+                                id="startTime"
                                 className="form-control"
                               />
                             </div>
                           </div>
                           <div className="d-flex flex-row align-items-center mb-4">
                             <div className="form-outline flex-fill mb-0">
-                              <label className="form-label">price</label>
+                              <label className="form-label">End Time</label>
+                              <input
+                                type="datetime-local"
+                                value={endTime}
+                                onChange={(e) => handleInputChange(e)}
+                                id="endTime"
+                                className="form-control"
+                              />
+                            </div>
+                          </div>
+                          <div className="d-flex flex-row align-items-center mb-4">
+                            <div className="form-outline flex-fill mb-0">
+                              <label className="form-label">Minimum Bids</label>
                               <input
                                 type="number"
-                                value={price}
+                                value={bids}
                                 onChange={(e) => handleInputChange(e)}
-                                id="price"
-                                placeholder="Enter price"
+                                id="bids"
+                                placeholder="Enter Minimum Bids"
                                 className="form-control"
                               />
                             </div>
                           </div>
                           <div className="d-flex flex-row align-items-center mb-4">
                             <div className="form-outline flex-fill mb-0">
-                              <label className="form-label">Description</label>
-                              <input
-                                type="text"
-                                value={description}
-                                onChange={(e) => handleInputChange(e)}
-                                id="description"
-                                placeholder="Enter description"
-                                className="form-control"
-                              />
-                            </div>
-                          </div>
-                          <div className="d-flex flex-row align-items-center mb-4">
-                            <div className="form-outline flex-fill mb-0">
-                              <input type="file" onChange={handleChange} />
-                              <button
-                                onClick={handleUpload}
-                                className="btn btn-outline-primary btn-sm my-1"
-                              >
-                                Upload
-                              </button>
-                              {loading && <p>Loading...</p>}
-                              {/* <UploadImage /> */}
+                              <label className="form-label" for="products">
+                                Select Product
+                              </label>
+                              <br></br>
+                              {loading ? (
+                                <CircularProgressbar />
+                              ) : (
+                                <select
+                                  name="product"
+                                  id="product"
+                                  onChange={(e) => handleInputChange(e)}
+                                >
+                                  {products.map((item) => (
+                                    <option
+                                      className="form-control"
+                                      value={item._id}
+                                      key={item._id}
+                                    >
+                                      {item.title}
+                                    </option>
+                                  ))}
+                                </select>
+                              )}
                             </div>
                           </div>
                         </div>
-
                         <button
                           onClick={() => handleSubmit()}
                           type="submit"

@@ -7,7 +7,7 @@ function Buyers() {
   React.useEffect(() => {
     GetData(`/buyer/all`)
       .then((response) => {
-        console.log(response);
+        
         setData(response);
       })
       .catch((e) => console.log(e));
@@ -49,7 +49,7 @@ function Buyers() {
                         )
                         .then(
                           (response) => {
-                            console.log(response.data.message);
+                            
                             alert(response.data.message);
                           },
                           (error) => {

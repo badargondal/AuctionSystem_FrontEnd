@@ -1,49 +1,73 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import MyNavbar from "../../../components/navbar";
-import {useNavigate} from "react-router-dom"
+import MyNavbar from "../../../../components/navbar";
+import { v4 as uuidv4 } from "uuid";
+
 function Index() {
   const navigate = useNavigate();
-  const [name, setname] = useState(null);
-  const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
-  const [confirmPassword, setConfirmPassword] = useState(null);
+  const [title, setTitle] = useState(null);
+  const [price, setPrice] = useState(null);
+  const [description, setDescription] = useState(null);
+  const [imgUrl, setImgUrl] = useState(null);
+  const [loading, setLoading] = useState(false);
 
+  const handleChange = (e) => {
+    setImgUrl(e.target.files[0]);
+  };
+  const handleUpload = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    const formData = new FormData();
+    formData.append("file", imgUrl);
+    formData.append("upload_preset", "AuctionSystem");
+    formData.append("cloud_name", "dq76y3bfa");
+    formData.append("public_id", `${uuidv4()}`);
+
+    try {
+      const res = await axios.post(
+        "https://api.cloudinary.com/v1_1/dq76y3bfa/image/upload",
+        formData
+      );
+      setLoading(false);
+      setImgUrl(res.data.url);
+    } catch (err) {
+      setLoading(false);
+      console.error(err);
+    }
+  };
   const handleInputChange = (e) => {
     const { id, value } = e.target;
-    if (id === "name") {
-      setname(value);
+    if (id === "title") {
+      setTitle(value);
     }
-    if (id === "email") {
-      setEmail(value);
+    if (id === "price") {
+      setPrice(value);
     }
-    if (id === "password") {
-      setPassword(value);
-    }
-    if (id === "confirmPassword") {
-      setConfirmPassword(value);
+    if (id === "description") {
+      setDescription(value);
     }
   };
 
   const handleSubmit = async () => {
     const data = {
-      name: name,
-      email: email,
-      password: password,
-      confirmPassword: confirmPassword,
+      title: title,
+      price: price,
+      description: description,
+      imgUrl: imgUrl,
     };
 
     const response = await axios
-      .post(`${process.env.REACT_APP_BASE_URL}/seller/register`, data, {
+      .post(`${process.env.REACT_APP_BASE_URL}/seller/product`, data, {
         headers: {
           "Content-Type": "application/json",
+          Authorization: localStorage.getItem("token"),
         },
       })
       .then(
         (response) => {
-          console.log(response.data.message);
-          navigate('/seller/login')
+          alert(response.data.message);
+          navigate("/seller/products");
         },
         (error) => {
           console.log(error);
@@ -63,62 +87,59 @@ function Index() {
                   <div className="row justify-content-center">
                     <div className="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
                       <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
-                        Sign up As a Seller
+                        Create Product
                       </p>
                       <div className="form mx-1 mx-md-4">
                         <div className="form-body">
                           <div className="d-flex flex-row align-items-center mb-4">
                             <div className="form-outline flex-fill mb-0">
-                              <label className="form-label">Name</label>
+                              <label className="form-label">Title</label>
                               <input
                                 type="text"
-                                value={name}
+                                value={title}
                                 onChange={(e) => handleInputChange(e)}
-                                id="name"
-                                placeholder="Enter your name"
+                                id="title"
+                                placeholder="Enter title"
                                 className="form-control"
                               />
                             </div>
                           </div>
                           <div className="d-flex flex-row align-items-center mb-4">
                             <div className="form-outline flex-fill mb-0">
-                              <label className="form-label">Email</label>
+                              <label className="form-label">price</label>
                               <input
-                                type="email"
-                                value={email}
+                                type="number"
+                                value={price}
                                 onChange={(e) => handleInputChange(e)}
-                                id="email"
-                                placeholder="Enter your email"
+                                id="price"
+                                placeholder="Enter price"
                                 className="form-control"
                               />
                             </div>
                           </div>
                           <div className="d-flex flex-row align-items-center mb-4">
                             <div className="form-outline flex-fill mb-0">
-                              <label className="form-label">Password</label>
+                              <label className="form-label">Description</label>
                               <input
-                                type="password"
-                                value={password}
+                                type="text"
+                                value={description}
                                 onChange={(e) => handleInputChange(e)}
-                                id="password"
-                                placeholder="Enter your password"
+                                id="description"
+                                placeholder="Enter description"
                                 className="form-control"
                               />
                             </div>
                           </div>
                           <div className="d-flex flex-row align-items-center mb-4">
                             <div className="form-outline flex-fill mb-0">
-                              <label className="form-label">
-                                Confirm Password
-                              </label>
-                              <input
-                                type="password"
-                                value={confirmPassword}
-                                onChange={(e) => handleInputChange(e)}
-                                id="confirmPassword"
-                                placeholder="Confirm your password"
-                                className="form-control"
-                              />
+                              <input type="file" onChange={handleChange} />
+                              <button
+                                onClick={handleUpload}
+                                className="btn btn-outline-primary btn-sm my-1"
+                              >
+                                Upload
+                              </button>
+                              {loading && <p>Loading...</p>}
                             </div>
                           </div>
                         </div>
@@ -128,19 +149,13 @@ function Index() {
                           type="submit"
                           className="btn btn-primary btn-lg"
                         >
-                          Register
+                          Create
                         </button>
-                        <p className="my-2">
-                          Already have an account ?{" "}
-                          <span>
-                            <Link to="/seller/login">Sign In</Link>
-                          </span>
-                        </p>
                       </div>
                     </div>
                     <div className="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
                       <img
-                        src="https://static.vecteezy.com/system/resources/previews/003/689/225/original/online-registration-or-sign-up-login-for-account-on-smartphone-app-user-interface-with-secure-password-mobile-application-for-ui-web-banner-access-cartoon-people-illustration-vector.jpg"
+                        src="https://cdni.iconscout.com/illustration/premium/thumb/auction-in-art-gallery-4737496-3944020.png"
                         className="img-fluid"
                         alt="Sample image"
                       />

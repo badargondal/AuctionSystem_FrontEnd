@@ -7,7 +7,7 @@ function Products() {
   React.useEffect(() => {
     GetData(`${process.env.REACT_APP_PRODUCTS}`)
       .then((response) => {
-        console.log(response);
+        
         setProducts(response);
       })
       .catch((e) => console.log(e));
@@ -55,7 +55,7 @@ function Products() {
                           )
                           .then(
                             (response) => {
-                              console.log(response.data.message);
+                              
                               alert(response.data.message);
                             },
                             (error) => {
