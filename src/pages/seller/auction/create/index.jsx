@@ -43,7 +43,7 @@ function Index() {
       startTime: startTime,
       minimumBids: bids,
       endTime: endTime,
-      productId: productId,
+      productId: productId,  
     };
     const response = await axios
       .post(`${process.env.REACT_APP_BASE_URL}/seller/auction/create`, data, {
