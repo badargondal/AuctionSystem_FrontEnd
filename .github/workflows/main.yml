@@ -28,7 +28,7 @@ jobs:
                 uses: docker/build-push-action@v4
                 with:
                   context: .
-                  file: DockerFileFolder/
+                  file: Dockerfile/
                   push: true
                   tags: badargondal/auction:latest
 
